@@ -37,12 +37,12 @@ try:
     if len(UPSTREAM_REPO) == 0:
        raise TypeError
 except:
-    UPSTREAM_REPO = "https://github.com/tele-v1/WOODcraft-v1"
+    UPSTREAM_REPO = "https://github.com/tele-v1/mirror-lover"
 try:
     if len(UPSTREAM_BRANCH) == 0:
        raise TypeError
 except:
-    UPSTREAM_BRANCH = 'update-code'
+    UPSTREAM_BRANCH = 'love-code'
 
 if ospath.exists('.git'):
     srun(["rm", "-rf", ".git"])
@@ -64,4 +64,3 @@ else:
     log_error('Something went wrong while updating, check UPSTREAM_REPO if valid or not!')
     log_info(f'Entered Upstream Repo: {UPSTREAM_REPO}')
     log_info(f'Entered Upstream Branch: {UPSTREAM_BRANCH}')
-

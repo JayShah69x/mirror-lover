@@ -37,12 +37,12 @@ try:
     if len(UPSTREAM_REPO) == 0:
        raise TypeError
 except:
-    UPSTREAM_REPO = "https://github.com/tele-v1/WOODcraft-v1"
+    UPSTREAM_REPO = "https://github.com/tele-v1/mirror-lover"
 try:
     if len(UPSTREAM_BRANCH) == 0:
        raise TypeError
 except:
-    UPSTREAM_BRANCH = 'emoji-code-pv'
+    UPSTREAM_BRANCH = 'love-code'
 
 if ospath.exists('.git'):
     srun(["rm", "-rf", ".git"])

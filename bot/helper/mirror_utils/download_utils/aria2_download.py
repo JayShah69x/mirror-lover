@@ -53,9 +53,9 @@ def __onDownloadStarted(api, gid):
 
                         smsg, button = GoogleDriveHelper().drive_list(sname, True)
                         if smsg:
-                            listener.onDownloadError('► Already mirrored it for you !\n\n')
+                            listener.onDownloadError('⇛ Someone already mirrored it for you •\n\n')
                             api.remove([download], force=True, files=True)
-                            return sendMarkup("► Here you go •", listener.bot, listener.message, button)
+                            return sendMarkup("⇛ Here you go •", listener.bot, listener.message, button)
 
                     else:
 
@@ -111,7 +111,7 @@ def __onDownloadComplete(api, gid):
             if BASE_URL is not None and listener.select:
                 api.client.force_pause(new_gid)
                 SBUTTONS = bt_selection_buttons(new_gid)
-                msg = "✔️Your download paused. Choose files then press Done Selecting button to start downloading."
+                msg = "Your download paused. Choose files then press Done Selecting button to start downloading."
                 sendMarkup(msg, listener.bot, listener.message, SBUTTONS)
     elif download.is_torrent:
         if dl := getDownloadByGid(gid):

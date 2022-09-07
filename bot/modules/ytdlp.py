@@ -35,7 +35,7 @@ def _ytdl(bot, message, isZip=False, isLeech=False):
                     uname = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
                 buttons = ButtonMaker()
                 chat_u = CHANNEL_USERNAME.replace("@", "")
-                buttons.buildbutton("✧ CHANNEL LINK ✧", f"https://t.me/{chat_u}")
+                buttons.buildbutton("⇛ CHANNEL LINK", f"https://t.me/{chat_u}")
                 help_msg = f"Dᴇᴀʀ {uname},\nYᴏᴜ ɴᴇᴇᴅ ᴛᴏ ᴊᴏɪɴ ᴍʏ Cʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ Bᴏᴛ \n\nCʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴇʟᴏᴡ Bᴜᴛᴛᴏɴ ᴛᴏ ᴊᴏɪɴ ᴍʏ Cʜᴀɴɴᴇʟ."
                 reply_message = sendMarkup(help_msg, bot, message, InlineKeyboardMarkup(buttons.build_menu(2)))
                 Thread(target=auto_delete_message, args=(bot, message, reply_message)).start()

@@ -60,7 +60,7 @@ def dyno_usage(update, context):
             AppMinutes = math.floor(AppQuotaUsed % 60)
             
             sendMessage(
-                f"<b>ℹ️ Dyno Usage ℹ️</b>\n\n<code>🟢 {app.name}</code>:\n"
+                f"<b>✿ Dyno Usage ✿</b>\n\n<code>🟢 {app.name}</code>:\n"
                 f"• <code>{AppHours}</code> <b>Hours and</b> <code>{AppMinutes}</code> <b>Minutes\n💯: {AppPercent}%</b>\n\n"
                 "<b>⚠️ Dyno Remaining ⚠️</b>\n"
                 f"• <code>{hours}</code> <b>Hours and</b> <code>{minutes}</code> <b>Minutes\n💯: {quota_percent}%</b>\n\n"

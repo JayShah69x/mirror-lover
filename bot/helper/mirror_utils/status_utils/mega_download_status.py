@@ -51,4 +51,3 @@ class MegaDownloadStatus:
         return self.__obj
 
     def eng(self):
-        return EngineStatus.STATUS_MEGA

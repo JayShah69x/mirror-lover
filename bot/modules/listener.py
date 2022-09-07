@@ -19,7 +19,7 @@ from bot import NAME_FONT, bot, Interval, INDEX_URL, BUTTON_FOUR_NAME, BUTTON_FO
                 download_dict, download_dict_lock, TG_SPLIT_SIZE, LOGGER, MEGA_KEY, DB_URI, INCOMPLETE_TASK_NOTIFIER, \
                 LEECH_LOG, BOT_PM, MIRROR_LOGS, SOURCE_LINK, AUTO_DELETE_UPLOAD_MESSAGE_DURATION, \
                 MIRROR_ENABLED, LEECH_ENABLED, WATCH_ENABLED, CLONE_ENABLED, LINK_LOGS, EMOJI_THEME, \
-                MIRROR_LOG_URL, LEECH_LOG_URL, TITLE_NAME, LEECH_LOG_INDEXING, PICS, NAME_FONT, FORCE_BOT_PM
+                MIRROR_LOG_URL, LEECH_LOG_URL, TITLE_NAME, LEECH_LOG_INDEXING, PICS, NAME_FONT, FORCE_BOT_PM, DISABLE_DRIVE_LINK
 from bot.helper.ext_utils.bot_utils import is_url, is_magnet, is_gdtot_link, is_mega_link, is_gdrive_link, get_content_type, get_readable_time
 from bot.helper.ext_utils.fs_utils import get_base_name, get_path_size, split_file, clean_download, clean_target
 from bot.helper.ext_utils.exceptions import DirectDownloadLinkException, NotSupportedExtractionArchive
@@ -235,21 +235,32 @@ class MirrorLeechListener:
         mesg = self.message.text.split('\n')
         message_args = mesg[0].split(' ', maxsplit=1)
         reply_to = self.message.reply_to_message
-        slmsg = f"Added by: {self.tag} \n👥 User ID: <code>{self.user_id}</code>\n\n"
+        if EMOJI_THEME is True:
+            slmsg = f"⇛ Name • <{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n\n"
+            slmsg += f"⇛ Size • {size}\n"
+            slmsg += f"⇛ Added by • {self.tag} | <code>{self.user_id}</code>\n\n"
+        else:
+            slmsg = f"Name: <{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n\n"
+            slmsg += f"Size: {size}\n"
+            slmsg += f"Added by: {self.tag} | <code>{self.user_id}</code>\n\n"
         if LINK_LOGS:
             try:
-                source_link = f"<code>{message_args[1]}</code>"
+                upper = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
+                source_link = f"<code>{message_args[1]}</code>\n"
+                lower = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
                 for link_log in LINK_LOGS:
-                    bot.sendMessage(link_log, text=slmsg + source_link, parse_mode=ParseMode.HTML )
+                    bot.sendMessage(link_log, text=slmsg + upper + source_link + lower, parse_mode=ParseMode.HTML )
             except IndexError:
                 pass
             if reply_to is not None:
                 try:
                     reply_text = reply_to.text
                     if is_url(reply_text):
-                        source_link = f"<code>{reply_text.strip()}</code>"
+                        upper = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
+                        source_link = f"<code>{reply_text.strip()}</code>\n"
+                        lower = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
                         for link_log in LINK_LOGS:
-                            bot.sendMessage(chat_id=link_log, text=slmsg + source_link, parse_mode=ParseMode.HTML )
+                            bot.sendMessage(chat_id=link_log, text=slmsg + upper + source_link + lower, parse_mode=ParseMode.HTML )
                 except TypeError:
                     pass
         if AUTO_DELETE_UPLOAD_MESSAGE_DURATION != -1:
@@ -261,114 +272,73 @@ class MirrorLeechListener:
                 warnmsg = ''
             else:
                 if EMOJI_THEME is True:
-                    warnmsg = f'<b>► This message will be deleted in <i>{auto_delete_message} minutes</i> from this group.</b>\n'
+                    warnmsg = f'<b>⇛ This message will be deleted in <i>{auto_delete_message} minutes</i> from this group.</b>\n'
                 else:
-                    warnmsg = f'<b>✧ This message will be deleted in <i>{auto_delete_message} minutes</i> from this group.</b>\n'
+                    warnmsg = f'<b>This message will be deleted in <i>{auto_delete_message} minutes</i> from this group.</b>\n'
         else:
             warnmsg = ''
         if BOT_PM and self.message.chat.type != 'private':
             if EMOJI_THEME is True:
-                pmwarn = f"<b>► I have sent files in PM.</b>\n"
+                pmwarn = f"<b>⇛ I have sent files in PM.</b>\n"
             else:
-                pmwarn = f"<b>✧ I have sent files in PM.</b>\n"
+                pmwarn = f"<b>I have sent files in PM.</b>\n"
         elif self.message.chat.type == 'private':
             pmwarn = ''
         else:
             pmwarn = ''
         if MIRROR_LOGS and self.message.chat.type != 'private':
             if EMOJI_THEME is True:
-                logwarn = f"<b>► I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
+                logwarn = f"<b>⇛ I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
             else:
-                logwarn = f"<b>✧ I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
+                logwarn = f"<b>I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
         elif self.message.chat.type == 'private':
             logwarn = ''
         else:
             logwarn = ''
         if LEECH_LOG and self.message.chat.type != 'private':
             if EMOJI_THEME is True:
-                logleechwarn = f"<b>► I have sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
+                logleechwarn = f"<b>⇛ I have sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
             else:
-                logleechwarn = f"<b>✧ have sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
+                logleechwarn = f"<b>I have sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
         elif self.message.chat.type == 'private':
             logleechwarn = ''
         else:
             logleechwarn = ''
         if not self.isPrivate and INCOMPLETE_TASK_NOTIFIER and DB_URI is not None:
             DbManger().rm_complete_task(self.message.link)
-        if EMOJI_THEME is True:
-            msg = f"<b>► Name •</b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n<b>► Size •</b>{size}"
-        else:
-            msg = f"<b>✧ Name •</b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n<b>✧ Size •</b>{size}"
-        if BOT_PM and FORCE_BOT_PM:
-            buttons = ButtonMaker()
-            if self.isLeech:
-                if EMOJI_THEME is True:
-                    msg += f'\n<b>► Total Files •</b>{folders}'
-                else:
-                    msg += f'\n<b>✧ Total Files •</b>{folders}'
-                if typ != 0:
-                    if EMOJI_THEME is True:
-                        msg += f'\n<b>► Corrupted Files •</b>{typ}'
-                    else:
-                        msg += f'\n<b>✧ Corrupted Files •</b>{typ}'
-                if EMOJI_THEME is True:
-                    msg += f'\n<b>► It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>► #Leech_by •</b>{self.tag}\n\n'
-                else: 
-                    msg += f'\n<b>✧ It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>✧ #Leech_by •</b>{self.tag}\n\n'
+
+
+        if BOT_PM and FORCE_BOT_PM and not self.isPrivate:
+            if EMOJI_THEME is True:
+                msg = f"<b>⇛ Name • </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n"
             else:
-                if EMOJI_THEME is True:
-                    msg += f'\n<b>► Type •</b>{typ}'
-                else:
-                    msg += f'\n<b>✧ Type •</b>{typ}'
-                if typ == "Folder":
-                    if EMOJI_THEME is True:
-                        msg += f'\n<b>► SubFolders •</b>{folders}'
-                        msg += f'\n<b>► Files •</b>{files}'
-                    else:
-                        msg += f'\n<b>✧ SubFolders •</b>{folders}'
-                        msg += f'\n<b>✧ Files •</b>{files}'
-                if EMOJI_THEME is True:
-                    msg += f'\n<b>► It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>► #Mirror_By •</b>{self.tag}\n\n'
-                else:
-                    msg += f'\n<b>✧ It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>✧ #Mirror_By •</b>{self.tag}\n\n' 
+                msg = f"<b>Name: </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n"
+            botpm = f"<b>\nHey {self.tag}!, I have sent your stuff in PM.</b>\n"
+            buttons = ButtonMaker()
             b_uname = bot.get_me().username
             botstart = f"http://t.me/{b_uname}"
-            buttons.buildbutton("► View links in PM", f"{botstart}")
+            buttons.buildbutton("⇛ View links in PM", f"{botstart}")
+
             if PICS:
-                if self.isLeech:
-                    botupdlmsg = sendPhoto(msg + pmwarn + logleechwarn + warnmsg, self.bot, self.message, random.choice(PICS), InlineKeyboardMarkup(buttons.build_menu(2)))
-                else:
-                    botupdlmsg = sendPhoto(msg + pmwarn + logwarn + warnmsg, self.bot, self.message, random.choice(PICS), InlineKeyboardMarkup(buttons.build_menu(2)))
+                sendPhoto(msg + botpm, self.bot, self.message, random.choice(PICS), InlineKeyboardMarkup(buttons.build_menu(2)))
             else:
-                if self.isLeech:
-                    botupdlmsg = sendMarkup(msg + pmwarn + logleechwarn + warnmsg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
-                else:
-                    botupdlmsg = sendMarkup(msg + pmwarn + logwarn + warnmsg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
-            Thread(target=auto_delete_upload_message, args=(bot, self.message, botupdlmsg)).start()
+                sendMarkup(msg + botpm, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
+            try:
+                self.message.delete()
+            except Exception as e:
+                    LOGGER.warning(e)
+            pass
+            reply_to = self.message.reply_to_message
+            if reply_to is not None and AUTO_DELETE_UPLOAD_MESSAGE_DURATION == -1:
+                reply_to.delete()
+
+        if EMOJI_THEME is True:
+            msg = f"<b>⇛ Name • </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n<b>⇛ Size: </b>{size}"
+        else:
+            msg = f"<b>╭ Name: </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n<b>├ Size: </b>{size}"
+
 
         if self.isLeech:
-            if FORCE_BOT_PM is False:
-                if EMOJI_THEME is True:
-                    msg += f'\n<b>► Total Files •</b>{folders}'
-                else:
-                    msg += f'\n<b>✧ Total Files •</b>{folders}'
-                if typ != 0:
-                    if EMOJI_THEME is True:
-                        msg += f'\n<b>► Corrupted Files •</b>{typ}'
-                    else:
-                        msg += f'\n<b>✧ Corrupted Files •</b>{typ}'
-                if EMOJI_THEME is True:
-                    msg += f'\n<b>► It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>► #Leech_by •</b>{self.tag}\n\n'
-                else: 
-                    msg += f'\n<b>✧ It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>✧ #Leech_by •</b>{self.tag}\n\n'
-            else:
-                pass
             if SOURCE_LINK is True:
                 try:
                     mesg = message_args[1]
@@ -405,31 +375,34 @@ class MirrorLeechListener:
                         pass
             else:
                 pass
-            if BOT_PM:
-                bot_d = bot.get_me()
-                b_uname = bot_d.username
-                botstart = f"http://t.me/{b_uname}"
-                buttons.buildbutton("► View file in PM", f"{botstart}")
+            if BOT_PM is True and FORCE_BOT_PM is False and self.message.chat.type != 'private':	
+                bot_d = bot.get_me()	
+                b_uname = bot_d.username	
+                botstart = f"http://t.me/{b_uname}"	
+                buttons.buildbutton("⇛ View file in PM", f"{botstart}")
+            elif self.message.chat.type == 'private':
+                botstart = ''
             else:
-                pass
-            if LEECH_LOG_INDEXING is True:
-                for i in LEECH_LOG:
-                    indexmsg = ''
-                    for index, (link, name) in enumerate(files.items(), start=1):
-                        indexmsg += f"{index}. <a href='{link}'>{name}</a>\n"
-                        if len(indexmsg.encode() + msg.encode()) > 4000:
-                            sleep(1.5)
-                            bot.sendMessage(chat_id=i, text=msg + indexmsg,
-                                            reply_markup=InlineKeyboardMarkup(buttons.build_menu(2)),
-                                            parse_mode=ParseMode.HTML)
-                            indexmsg = ''
-                    if indexmsg != '':
-                        sleep(1.5)
-                        bot.sendMessage(chat_id=i, text=msg + indexmsg,
-                                        reply_markup=InlineKeyboardMarkup(buttons.build_menu(2)),
-                                        parse_mode=ParseMode.HTML)
+                botstart = ''
+
+            if EMOJI_THEME is True:
+                msg += f'\n<b>⇛ Total Files • </b>{folders}'
             else:
-                pass
+                msg += f'\n<b>├ Total Files: </b>{folders}'
+            if typ != 0:
+                if EMOJI_THEME is True:
+                    msg += f'\n<b>⇛ Corrupted Files • </b>{typ}'
+                else:
+                    msg += f'\n<b>├ Corrupted Files: </b>{typ}'
+            if EMOJI_THEME is True:
+                msg += f'\n<b>⇛ It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
+                msg += f'\n<b>⇛ #Leech_by • </b>{self.tag}\n\n'
+            else: 
+                msg += f'\n<b>├ It Tooks:</b> {get_readable_time(time() - self.message.date.timestamp())}'
+                msg += f'\n<b>╰ #Leech_by: </b>{self.tag}\n\n'
+
+
+
             if not files:
                 if PICS:
                     uploadmsg = sendPhoto(msg, self.bot, self.message, random.choice(PICS), InlineKeyboardMarkup(buttons.build_menu(2)))
@@ -446,6 +419,7 @@ class MirrorLeechListener:
                                 uploadmsg = sendPhoto(msg + fmsg + pmwarn + logleechwarn + warnmsg, self.bot, self.message, random.choice(PICS), InlineKeyboardMarkup(buttons.build_menu(2)))
                             else:
                                 uploadmsg = sendMarkup(msg + fmsg + pmwarn + logleechwarn + warnmsg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
+                            Thread(target=auto_delete_upload_message, args=(bot, self.message, uploadmsg)).start()
                         fmsg = ''
                 if fmsg != '':
                     sleep(1.5)
@@ -455,32 +429,50 @@ class MirrorLeechListener:
                         else:
                             uploadmsg = sendMarkup(msg + fmsg + pmwarn + logleechwarn + warnmsg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
                         Thread(target=auto_delete_upload_message, args=(bot, self.message, uploadmsg)).start()
+                if LEECH_LOG_INDEXING is True:
+                    for i in LEECH_LOG:
+                        indexmsg = ''
+                        for index, (link, name) in enumerate(files.items(), start=1):
+                            indexmsg += f"{index}. <a href='{link}'>{name}</a>\n"
+                            if len(indexmsg.encode() + msg.encode()) > 4000:
+                                bot.sendMessage(chat_id=i, text=msg + indexmsg,
+                                                reply_markup=InlineKeyboardMarkup(buttons.build_menu(2)),
+                                                parse_mode=ParseMode.HTML)
+                                indexmsg = ''
+                        if indexmsg != '':
+                                bot.sendMessage(chat_id=i, text=msg + indexmsg,
+                                                reply_markup=InlineKeyboardMarkup(buttons.build_menu(2)),
+                                                parse_mode=ParseMode.HTML)
+                else:
+                    pass
             if self.seed:
                 if self.newDir:
                     clean_target(self.newDir)
                 return			   			  
         else:
-            if FORCE_BOT_PM is False:
+            if EMOJI_THEME is True:
+                msg += f'\n<b>⇛ Type • </b>{typ}'
+            else:
+                msg += f'\n<b>├ Type: </b>{typ}'
+            if typ == "Folder":
                 if EMOJI_THEME is True:
-                    msg += f'\n<b>► Type •</b>{typ}'
+                    msg += f'\n<b>⇛ SubFolders • </b>{folders}'
+                    msg += f'\n<b>⇛ Files • </b>{files}'
                 else:
-                    msg += f'\n<b>✧ Type •</b>{typ}'
-                if typ == "Folder":
-                    if EMOJI_THEME is True:
-                        msg += f'\n<b>► SubFolders •</b>{folders}'
-                        msg += f'\n<b>► Files •</b>{files}'
-                    else:
-                        msg += f'\n<b>✧ SubFolders •</b>{folders}'
-                        msg += f'\n<b>✧ Files •</b>{files}'
-                if EMOJI_THEME is True:
-                    msg += f'\n<b>► It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>► #Mirror_By •</b>{self.tag}\n\n'
-                else:
-                    msg += f'\n<b>✧ It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
-                    msg += f'\n<b>✧ #Mirror_By •</b>{self.tag}\n\n'
+                    msg += f'\n<b>├ SubFolders: </b>{folders}'
+                    msg += f'\n<b>├ Files: </b>{files}'
+            if EMOJI_THEME is True:
+                msg += f'\n<b>⇛ It Tooks •</b> {get_readable_time(time() - self.message.date.timestamp())}'
+                msg += f'\n<b>⇛ #Mirror_By • </b>{self.tag}\n\n'
+            else:
+                msg += f'\n<b>├ It Tooks:</b> {get_readable_time(time() - self.message.date.timestamp())}'
+                msg += f'\n<b>╰ #Mirror_By: </b>{self.tag}\n\n' 
             buttons = ButtonMaker()
             link = short_url(link)
-            buttons.buildbutton("✔️ Drive Link", link)
+            if DISABLE_DRIVE_LINK is True and self.message.chat.type != 'private':
+                pass
+            else:
+                buttons.buildbutton("✔️ Drive Link", link)
             LOGGER.info(f'Done Uploading {name}')
             if INDEX_URL is not None:
                 url_path = rutils.quote(f'{name}')
@@ -527,31 +519,36 @@ class MirrorLeechListener:
                                         )["path"]
                                         buttons.buildbutton(f"🔗 Source Link 🔗", f"https://graph.org/{link}")
                                     else:
-                                        buttons.buildbutton(f"🔗 Source 🔗", source_link)
+                                        buttons.buildbutton(f"🔗 Source Link 🔗", source_link)
                             except Exception:
                                 pass
                     else:
                         pass
-                    if BOT_PM:
-                        bot_d = bot.get_me()
-                        b_uname = bot_d.username
-                        botstart = f"http://t.me/{b_uname}"
-                        buttons.buildbutton("► View file in PM", f"{botstart}")
+                    
+
+                    if BOT_PM is True and FORCE_BOT_PM is False and self.message.chat.type != 'private':	
+                        bot_d = bot.get_me()	
+                        b_uname = bot_d.username	
+                        botstart = f"http://t.me/{b_uname}"	
+                        buttons.buildbutton("⇛ View file in PM", f"{botstart}")
+                    elif self.message.chat.type == 'private':
+                        botstart = ''
                     else:
-                        pass
-                    if BUTTON_FOUR_NAME is not None and BUTTON_FOUR_URL is not None:
-                        buttons.buildbutton(f"{BUTTON_FOUR_NAME}", f"{BUTTON_FOUR_URL}")
-                    if BUTTON_FIVE_NAME is not None and BUTTON_FIVE_URL is not None:
-                        buttons.buildbutton(f"{BUTTON_FIVE_NAME}", f"{BUTTON_FIVE_URL}")
-                    if BUTTON_SIX_NAME is not None and BUTTON_SIX_URL is not None:
-                        buttons.buildbutton(f"{BUTTON_SIX_NAME}", f"{BUTTON_SIX_URL}")
-            if FORCE_BOT_PM is False:
+                        botstart = ''
+
+            if BUTTON_FOUR_NAME is not None and BUTTON_FOUR_URL is not None:
+                buttons.buildbutton(f"{BUTTON_FOUR_NAME}", f"{BUTTON_FOUR_URL}")
+            if BUTTON_FIVE_NAME is not None and BUTTON_FIVE_URL is not None:
+                buttons.buildbutton(f"{BUTTON_FIVE_NAME}", f"{BUTTON_FIVE_URL}")
+            if BUTTON_SIX_NAME is not None and BUTTON_SIX_URL is not None:
+                buttons.buildbutton(f"{BUTTON_SIX_NAME}", f"{BUTTON_SIX_URL}")
+
+            if FORCE_BOT_PM is False or self.message.chat.type == 'private':
                 if PICS:
                     uploadmsg = sendPhoto(msg + pmwarn + logwarn + warnmsg, self.bot, self.message, random.choice(PICS), InlineKeyboardMarkup(buttons.build_menu(2)))
                 else:
                     uploadmsg = sendMarkup(msg + pmwarn + logwarn + warnmsg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
                 Thread(target=auto_delete_upload_message, args=(bot, self.message, uploadmsg)).start()
-
             
             if MIRROR_LOGS:	
                 try:	
@@ -589,6 +586,14 @@ class MirrorLeechListener:
 
     def onDownloadError(self, error):
         error = error.replace('<', ' ').replace('>', ' ')
+        try:
+            if AUTO_DELETE_UPLOAD_MESSAGE_DURATION != -1 and reply_to is not None:
+                reply_to.delete()
+            else:
+                pass
+        except Exception as e:
+            LOGGER.warning(e)
+            pass
         clean_download(self.dir)
         if self.newDir:
             clean_download(self.newDir)

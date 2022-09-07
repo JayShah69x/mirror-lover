@@ -643,9 +643,9 @@ except KeyError:
 try:
     AUTHOR_NAME = getConfig('AUTHOR_NAME')
     if len(AUTHOR_NAME) == 0:
-        AUTHOR_NAME = 'tele-v1'
+        AUTHOR_NAME = 'Mirror-lover'
 except KeyError:
-    AUTHOR_NAME = 'tele-v1'
+    AUTHOR_NAME = 'Mirror-lover'
 
 try:
     AUTHOR_URL = getConfig('AUTHOR_URL')
@@ -656,15 +656,20 @@ except KeyError:
 try:
     GD_INFO = getConfig('GD_INFO')
     if len(GD_INFO) == 0:
-        GD_INFO = 'Uploaded by WOODcraft-v1 Mirror Bot'
+        GD_INFO = 'Uploaded by Mirror-lover Mirror Bot'
 except KeyError:
-    GD_INFO = 'Uploaded by WOODcraft-v1 Mirror Bot'
+    GD_INFO = 'Uploaded by Mirror-lover Mirror Bot'
+try:
+    DISABLE_DRIVE_LINK = getConfig('DISABLE_DRIVE_LINK')
+    DISABLE_DRIVE_LINK = DISABLE_DRIVE_LINK.lower() == 'true'
+except KeyError:
+    DISABLE_DRIVE_LINK = False
 try:
     TITLE_NAME = getConfig('TITLE_NAME')
     if len(TITLE_NAME) == 0:
-        TITLE_NAME = 'WOODcraft-v1'
+        TITLE_NAME = 'mirror-lover'
 except KeyError:
-    TITLE_NAME = 'WOODcraft-v1'
+    TITLE_NAME = 'mirror-lover'
 try:
     START_BTN1_NAME = getConfig('START_BTN1_NAME')
     START_BTN1_URL = getConfig('START_BTN1_URL')
@@ -685,9 +690,9 @@ except:
 try:
     CREDIT_NAME = getConfig('CREDIT_NAME')
     if len(CREDIT_NAME) == 0:
-        CREDIT_NAME = 'WOODcraft-v1'
+        CREDIT_NAME = 'mirror-lover'
 except KeyError:
-    CREDIT_NAME = 'WOODcraft-v1'
+    CREDIT_NAME = 'mirror-lover'
 try:
     NAME_FONT = getConfig('NAME_FONT')
     if len(NAME_FONT) == 0:
@@ -704,8 +709,8 @@ try:
     FINISHED_PROGRESS_STR = getConfig('FINISHED_PROGRESS_STR') 
     UN_FINISHED_PROGRESS_STR = getConfig('UN_FINISHED_PROGRESS_STR')
 except:
-    FINISHED_PROGRESS_STR = '●' # '▣'
-    UN_FINISHED_PROGRESS_STR = '✧' # '✦'
+    FINISHED_PROGRESS_STR = '⁲' # '■'
+    UN_FINISHED_PROGRESS_STR = '▯' # '□'
 try:
     FSUB = getConfig('FSUB')
     FSUB = FSUB.lower() == 'true'

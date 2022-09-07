@@ -64,3 +64,4 @@ else:
     log_error('Something went wrong while updating, check UPSTREAM_REPO if valid or not!')
     log_info(f'Entered Upstream Repo: {UPSTREAM_REPO}')
     log_info(f'Entered Upstream Branch: {UPSTREAM_BRANCH}')
+

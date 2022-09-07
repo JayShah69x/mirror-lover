@@ -42,7 +42,7 @@ try:
     if len(UPSTREAM_BRANCH) == 0:
        raise TypeError
 except:
-    UPSTREAM_BRANCH = 'update-code'
+    UPSTREAM_BRANCH = 'emoji-code-pv'
 
 if ospath.exists('.git'):
     srun(["rm", "-rf", ".git"])
@@ -58,10 +58,5 @@ update = srun([f"git init -q \
 
 if update.returncode == 0:
     log_info('Successfully updated with latest commit from UPSTREAM_REPO')
-    log_info(f'Upstream Repo: {UPSTREAM_REPO}')
-    log_info(f'Upstream Branch: {UPSTREAM_BRANCH}')
 else:
     log_error('Something went wrong while updating, check UPSTREAM_REPO if valid or not!')
-    log_info(f'Entered Upstream Repo: {UPSTREAM_REPO}')
-    log_info(f'Entered Upstream Branch: {UPSTREAM_BRANCH}')
-

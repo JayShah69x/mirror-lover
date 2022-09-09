@@ -279,27 +279,27 @@ class MirrorLeechListener:
             warnmsg = ''
         if BOT_PM and self.message.chat.type != 'private':
             if EMOJI_THEME is True:
-                pmwarn = f"<b>⇛ I have sent files in PM.</b>\n"
+                pmwarn = f"<b>⇛ Baby sent files in PM.</b>\n"
             else:
-                pmwarn = f"<b>I have sent files in PM.</b>\n"
+                pmwarn = f"<b>Baby sent files in PM.</b>\n"
         elif self.message.chat.type == 'private':
             pmwarn = ''
         else:
             pmwarn = ''
         if MIRROR_LOGS and self.message.chat.type != 'private':
             if EMOJI_THEME is True:
-                logwarn = f"<b>⇛ I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
+                logwarn = f"<b>⇛ Baby sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
             else:
-                logwarn = f"<b>I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
+                logwarn = f"<b>Baby sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
         elif self.message.chat.type == 'private':
             logwarn = ''
         else:
             logwarn = ''
         if LEECH_LOG and self.message.chat.type != 'private':
             if EMOJI_THEME is True:
-                logleechwarn = f"<b>⇛ I have sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
+                logleechwarn = f"<b>⇛ Baby sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
             else:
-                logleechwarn = f"<b>I have sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
+                logleechwarn = f"<b>Baby sent files in Leech Log Channel. Join <a href=\"{LEECH_LOG_URL}\">Leech Log channel</a> </b>\n"
         elif self.message.chat.type == 'private':
             logleechwarn = ''
         else:
@@ -313,7 +313,7 @@ class MirrorLeechListener:
                 msg = f"<b>⇛ Name • </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n"
             else:
                 msg = f"<b>Name: </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n"
-            botpm = f"<b>\nHey {self.tag}!, I have sent your stuff in PM.</b>\n"
+            botpm = f"<b>\n⇛ Hey {self.tag}!, Baby Receive Your File PM.</b>\n"
             buttons = ButtonMaker()
             b_uname = bot.get_me().username
             botstart = f"http://t.me/{b_uname}"
@@ -379,7 +379,7 @@ class MirrorLeechListener:
                 bot_d = bot.get_me()	
                 b_uname = bot_d.username	
                 botstart = f"http://t.me/{b_uname}"	
-                buttons.buildbutton("⇛ View file in PM", f"{botstart}")
+                buttons.buildbutton("⇛ Hey Baby file in PM", f"{botstart}")
             elif self.message.chat.type == 'private':
                 botstart = ''
             else:
@@ -530,7 +530,7 @@ class MirrorLeechListener:
                         bot_d = bot.get_me()	
                         b_uname = bot_d.username	
                         botstart = f"http://t.me/{b_uname}"	
-                        buttons.buildbutton("⇛ View file in PM", f"{botstart}")
+                        buttons.buildbutton("⇛ Hey Baby file in PM", f"{botstart}")
                     elif self.message.chat.type == 'private':
                         botstart = ''
                     else:

@@ -36,18 +36,18 @@ def _clone(message, bot):
         warnmsg = ''
     if BOT_PM and message.chat.type != 'private':
         if EMOJI_THEME is True:
-            pmwarn = f"<b>⇛ I have sent files in PM.</b>\n"
+            pmwarn = f"<b>⇛ Baby sent files in PM.</b>\n"
         else:
-            pmwarn = f"<b>I have sent files in PM.</b>\n"
+            pmwarn = f"<b>Baby sent files in PM.</b>\n"
     elif message.chat.type == 'private':
         pmwarn = ''
     else:
         pmwarn = ''
     if MIRROR_LOGS and message.chat.type != 'private':
         if EMOJI_THEME is True:
-            logwarn = f"<b>⇛ I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
+            logwarn = f"<b>⇛ Baby sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
         else:
-            logwarn = f"<b>I have sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
+            logwarn = f"<b>Baby sent files in Mirror Log Channel. Join <a href=\"{MIRROR_LOG_URL}\">Mirror Log channel</a> </b>\n"
     elif message.chat.type == 'private':
         logwarn = ''
     else:

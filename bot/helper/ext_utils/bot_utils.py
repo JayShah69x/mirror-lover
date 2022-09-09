@@ -238,7 +238,7 @@ def get_readable_message():
                 else:
                     msg += f"\n<b>├ Engine :</b> {download.eng()}"
                     msg += f"\n<b>╰ Size: </b>{download.size()}"
-            msg += f"\n<b>✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥</b>"
+            msg += f"\n<b>✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥</b>"
             msg += "\n\n"
             msg += f"\n<b>►Repo-By ✤◄ Bad Angel ►✤</b>"
             msg += "\n\n"

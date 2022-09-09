@@ -245,9 +245,9 @@ class MirrorLeechListener:
             slmsg += f"Added by: {self.tag} | <code>{self.user_id}</code>\n\n"
         if LINK_LOGS:
             try:
-                upper = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
+                upper = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
                 source_link = f"<code>{message_args[1]}</code>\n"
-                lower = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
+                lower = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
                 for link_log in LINK_LOGS:
                     bot.sendMessage(link_log, text=slmsg + upper + source_link + lower, parse_mode=ParseMode.HTML )
             except IndexError:
@@ -256,9 +256,9 @@ class MirrorLeechListener:
                 try:
                     reply_text = reply_to.text
                     if is_url(reply_text):
-                        upper = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
+                        upper = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
                         source_link = f"<code>{reply_text.strip()}</code>\n"
-                        lower = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
+                        lower = f"✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥✦✥\n"
                         for link_log in LINK_LOGS:
                             bot.sendMessage(chat_id=link_log, text=slmsg + upper + source_link + lower, parse_mode=ParseMode.HTML )
                 except TypeError:

@@ -317,7 +317,7 @@ class MirrorLeechListener:
             buttons = ButtonMaker()
             b_uname = bot.get_me().username
             botstart = f"http://t.me/{b_uname}"
-            buttons.buildbutton("⇛ View links in PM", f"{botstart}")
+            buttons.buildbutton("⇛ Baby links in PM", f"{botstart}")
 
             if PICS:
                 sendPhoto(msg + botpm, self.bot, self.message, random.choice(PICS), InlineKeyboardMarkup(buttons.build_menu(2)))

@@ -157,7 +157,10 @@ def stats(update, context):
     mem_a = get_readable_file_size(memory.available)
     mem_u = get_readable_file_size(memory.used)
     if EMOJI_THEME is True:
-            stats = f'<b>⇛ ║✿ BOT STATISTICS ✿║</b>\n' \
+            stats = f'<b>⇛ ✤◄ 𝐖𝐎𝐎𝐃𝐜𝐫𝐚𝐟𝐭 ►✤</b>\n' \
+                    f'<b></b>\n' \
+                    f'<b>⇛ ║✿ BOT STATISTICS ✿║</b>\n' \
+                    f'<b></b>\n' \
                     f'<b>⇛ Updated On • </b>{last_commit}\n'\
                     f'<b>⇛ Uptime • </b>{currentTime}\n'\
                     f'<b>⇛ OS Uptime • </b>{osUptime}\n'\

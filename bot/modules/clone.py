@@ -179,7 +179,7 @@ def _clone(message, bot):
                         msg = f"<b>⇛ Name • </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n"
                     else:
                         msg = f"<b>Name: </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n"
-                    botpm = f"\n<b>Hey {tag}!, I have sent your cloned links in PM.</b>\n"
+                    botpm = f"\n<b>⇛ Hey {tag}!, ⇛ Baby Receive your cloned links in PM.</b>\n"
                     buttons = ButtonMaker()
                     b_uname = bot.get_me().username
                     botstart = f"http://t.me/{b_uname}"

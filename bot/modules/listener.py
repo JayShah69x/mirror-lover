@@ -314,6 +314,7 @@ class MirrorLeechListener:
             else:
                 msg = f"<b>Name: </b><{NAME_FONT}>{escape(name)}</{NAME_FONT}>\n"
             botpm = f"<b>\n⇛ Hey {self.tag}!, Baby Receive Your File PM.</b>\n"
+            botpm += f"<b>\n⇛ حبيبي هل انت سعيد </b>\n"
             buttons = ButtonMaker()
             b_uname = bot.get_me().username
             botstart = f"http://t.me/{b_uname}"

@@ -555,6 +555,8 @@ def main():
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
         msg = f"✔️Restarted successfully•••\n ◉ Date • {date}\n ◉ Time • {time}\n ◉ TimeZone • {TIMEZONE}\n"
+        msg += f" \n"
+        msg += f"⇛ Hey Baby Now start mirror games\n"
         bot.edit_message_text(msg, chat_id, msg_id)
         osremove(".restartmsg")
     elif not notifier_dict and AUTHORIZED_CHATS:

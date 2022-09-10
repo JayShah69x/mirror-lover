@@ -557,14 +557,14 @@ def main():
         msg = f"✔️Restarted successfully•••\n ◉ Date • {date}\n ◉ Time • {time}\n ◉ TimeZone • {TIMEZONE}\n"
         msg += f" \n"
         msg += f"⇛ Hey Baby Now start mirror games\n"
-        msg += f"⇛ لنبدأ لعبة المرآة\n"
+        msg += f"⇚ لنبدأ لعبة المرآة\n"
         bot.edit_message_text(msg, chat_id, msg_id)
         osremove(".restartmsg")
     elif not notifier_dict and AUTHORIZED_CHATS:
         text = f" ✔️Baby Bot Restarted•••  \n◉ Date • {date} \n◉ Time • {time} \n◉ TimeZone • {TIMEZONE}"
         text += f" \n"
         text += f"⇛ Hey Baby Now start mirror games\n"
-        text += f"⇛ لنبدأ لعبة المرآة\n"
+        text += f"⇚ لنبدأ لعبة المرآة\n"
         for id_ in AUTHORIZED_CHATS:
             try:
                 bot.sendMessage(chat_id=id_, text=text, parse_mode=ParseMode.HTML)

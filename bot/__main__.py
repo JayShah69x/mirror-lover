@@ -559,6 +559,8 @@ def main():
         osremove(".restartmsg")
     elif not notifier_dict and AUTHORIZED_CHATS:
         text = f" ✔️Baby Bot Restarted•••  \n◉ Date • {date} \n◉ Time • {time} \n◉ TimeZone • {TIMEZONE}"
+        text += f" \n"
+        text += f"⇛ Hey Baby Now start mirror games\n"
         for id_ in AUTHORIZED_CHATS:
             try:
                 bot.sendMessage(chat_id=id_, text=text, parse_mode=ParseMode.HTML)

@@ -159,17 +159,17 @@ def stats(update, context):
     if EMOJI_THEME is True:
             stats = f'<b>⇛ ✤◄ 𝐖𝐎𝐎𝐃𝐜𝐫𝐚𝐟𝐭 ►✤</b>\n' \
                     f'<b></b>\n' \
-                    f'<b>⇛ ║✿ BOT STATISTICS ✿║</b>\n' \
+                    f'<b>⇛  ⇅ 𝗕𝗼𝘁 𝗦𝘁𝗮𝘁𝗶𝘀𝘁𝗶𝗰𝘀 ⇅</b>\n' \
                     f'<b></b>\n' \
                     f'<b>⇛ Updated On • </b>{last_commit}\n'\
                     f'<b>⇛ Uptime • </b>{currentTime}\n'\
                     f'<b>⇛ OS Uptime • </b>{osUptime}\n'\
-                    f'<b>⇛ CPU •</b> ┋{progress_bar(cpuUsage)}┋ {cpuUsage}%\n'\
-                    f'<b>⇛ RAM •</b> ┋{progress_bar(mem_p)}┋ {mem_p}%\n'\
-                    f'<b>⇛ Disk •</b> ┋{progress_bar(disk)}┋ {disk}%\n'\
+                    f'<b>⇛ Cpu •</b>┋{progress_bar(cpuUsage)}┋{cpuUsage}%\n'\
+                    f'<b>⇛ Ram •</b>┋{progress_bar(mem_p)}┋{mem_p}%\n'\
+                    f'<b>⇛ Disk •</b>┋{progress_bar(disk)}┋{disk}%\n'\
                     f'<b>⇛ Disk Free •</b> {free}\n'\
-                    f'<b>⇛ 🔺 Upload Data •</b> {sent}\n'\
-                    f'<b>⇛ 🔻 Download Data •</b> {recv}\n\n'
+                    f'<b>⇛ ⇑ Upload File •</b> {sent}\n'\
+                    f'<b>⇛ ⇓ Download File •</b> {recv}\n\n'
 
     else:
             stats = f'<b>╭─《 BOT STATISTICS 》</b>\n' \

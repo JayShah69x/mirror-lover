@@ -64,13 +64,13 @@ def torser(update, context):
     if SITES is None and SEARCH_PLUGINS is None:
         sendMessage("No API link or search PLUGINS added for this function", context.bot, update.message)
     elif len(context.args) == 0 and SITES is None:
-        sendMessage("Send a search key along with command", context.bot, update.message)
+        sendMessage("✔️Send a search key along with command", context.bot, update.message)
     elif len(context.args) == 0:
         buttons.sbutton('Trending', f"torser {user_id} apitrend")
         buttons.sbutton('Recent', f"torser {user_id} apirecent")
         buttons.sbutton("Cancel", f"torser {user_id} cancel")
         button = InlineKeyboardMarkup(buttons.build_menu(2))
-        sendMarkup("Send a search key along with command", context.bot, update.message, button)
+        sendMarkup("✔️Send a search key along with command", context.bot, update.message, button)
     elif SITES is not None and SEARCH_PLUGINS is not None:
         buttons.sbutton('Api', f"torser {user_id} apisearch")
         buttons.sbutton('Plugins', f"torser {user_id} plugin")

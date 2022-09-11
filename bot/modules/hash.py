@@ -33,7 +33,7 @@ def TimeFormatter(milliseconds: int) -> str:
 def hash(update, context):
     message = update.effective_message
     mediamessage = message.reply_to_message
-    help_msg = "<b>Reply to message including file:</b>"
+    help_msg = "<b>✔️Baby Reply to message including file:</b>"
     help_msg += f"\n<code>/{BotCommands.HashCommand}" + " {message}" + "</code>"
     if not mediamessage: return sendMessage(help_msg, context.bot, update.message)
     file = None

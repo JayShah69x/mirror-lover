@@ -28,7 +28,7 @@ def cancel_mirror(update, context):
         if not dl:
             return sendMessage("This is not an active task!", context.bot, update.message)
     elif len(context.args) == 0:
-        msg = f"Reply to an active <code>/{BotCommands.MirrorCommand}</code> message which \
+        msg = f"✔️Reply to an active <code>/{BotCommands.MirrorCommand}</code> message which \
                 was used to start the download or send <code>/{BotCommands.CancelMirror} GID</code> to cancel it!"
         return sendMessage(msg, context.bot, update.message)
 
@@ -47,19 +47,19 @@ def cancel_all(status):
 
 def cancell_all_buttons(update, context):
     buttons = button_build.ButtonMaker()
-    buttons.sbutton("Downloading", f"canall {MirrorStatus.STATUS_DOWNLOADING}")
-    buttons.sbutton("Uploading", f"canall {MirrorStatus.STATUS_UPLOADING}")
-    buttons.sbutton("Seeding", f"canall {MirrorStatus.STATUS_SEEDING}")
-    buttons.sbutton("Cloning", f"canall {MirrorStatus.STATUS_CLONING}")
-    buttons.sbutton("Extracting", f"canall {MirrorStatus.STATUS_EXTRACTING}")
-    buttons.sbutton("Archiving", f"canall {MirrorStatus.STATUS_ARCHIVING}")
-    buttons.sbutton("Queued", f"canall {MirrorStatus.STATUS_WAITING}")
-    buttons.sbutton("Paused", f"canall {MirrorStatus.STATUS_PAUSED}")
-    buttons.sbutton("All", "canall all")
+    buttons.sbutton("✔️Downloading", f"canall {MirrorStatus.STATUS_DOWNLOADING}")
+    buttons.sbutton("✔️Uploading", f"canall {MirrorStatus.STATUS_UPLOADING}")
+    buttons.sbutton("✔️Seeding", f"canall {MirrorStatus.STATUS_SEEDING}")
+    buttons.sbutton("✔️Cloning", f"canall {MirrorStatus.STATUS_CLONING}")
+    buttons.sbutton("✔️Extracting", f"canall {MirrorStatus.STATUS_EXTRACTING}")
+    buttons.sbutton("✔️Archiving", f"canall {MirrorStatus.STATUS_ARCHIVING}")
+    buttons.sbutton("✔️Queued", f"canall {MirrorStatus.STATUS_WAITING}")
+    buttons.sbutton("✔️Paused", f"canall {MirrorStatus.STATUS_PAUSED}")
+    buttons.sbutton("✔️All", "canall all")
     if AUTO_DELETE_MESSAGE_DURATION == -1:
         buttons.sbutton("Close", "canall close")
     button = InlineKeyboardMarkup(buttons.build_menu(2))
-    can_msg = sendMarkup('Choose tasks to cancel.', context.bot, update.message, button)
+    can_msg = sendMarkup('✔️Baby Choose tasks to cancel.', context.bot, update.message, button)
     Thread(target=auto_delete_message, args=(context.bot, update.message, can_msg)).start()
 
 def cancel_all_update(update, context):

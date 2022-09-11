@@ -17,7 +17,7 @@ def mediainfo(update, context):
     process = run('mediainfo', capture_output=True, shell=True)
     if process.stderr.decode(): return LOGGER.error("mediainfo not installed. Read readme.")
     # mediainfo control -
-    help_msg = "\n<b>By replying to message (including media):</b>"
+    help_msg = "\n<b>✔️Baby replying to message (including media):</b>"
     help_msg += f"\n<code>/{BotCommands.MediaInfoCommand}" + " {message}" + "</code>"
     if not mediamessage: return sendMessage(help_msg, context.bot, update.message)
     file = None
@@ -29,7 +29,7 @@ def mediainfo(update, context):
             file = i
             break
     if not file: return sendMessage(help_msg, context.bot, update.message)
-    sent = sendMessage('Running mediainfo. Downloading your file.', context.bot, update.message)
+    sent = sendMessage('✔️Running mediainfo. Downloading your file.', context.bot, update.message)
     try:
         VtPath = os.path.join("Mediainfo", str(message.from_user.id))
         if not os.path.exists("Mediainfo"): os.makedirs("Mediainfo")

@@ -410,46 +410,32 @@ def get_content_type(link: str) -> str:
 
 
 ONE, TWO, THREE = range(3)
+
 def pop_up_stats(update, context):
     query = update.callback_query
     stats = bot_sys_stats()
     query.answer(text=stats, show_alert=True)
+
 def bot_sys_stats():
     currentTime = get_readable_time(time() - botStartTime)
-    cpu = psutil.cpu_percent()
-    mem = psutil.virtual_memory().percent
-    disk = psutil.disk_usage(DOWNLOAD_DIR).percent
-    total, used, free = shutil.disk_usage(DOWNLOAD_DIR)
-    total = get_readable_file_size(total)
-    used = get_readable_file_size(used)
-    free = get_readable_file_size(free)
+    total, used, free, disk = disk_usage('/')
+    disk_t = get_readable_file_size(total)
+    disk_f = get_readable_file_size(free)
+    memory = virtual_memory()
+    mem_p = memory.percent
     recv = get_readable_file_size(psutil.net_io_counters().bytes_recv)
     sent = get_readable_file_size(psutil.net_io_counters().bytes_sent)
-    num_active = 0
-    num_upload = 0
-    num_split = 0
-    num_extract = 0
-    num_archi = 0
-    tasks = len(download_dict)
-    for stats in list(download_dict.values()):
-       if stats.status() == MirrorStatus.STATUS_DOWNLOADING:
-                num_active += 1
-       if stats.status() == MirrorStatus.STATUS_UPLOADING:
-                num_upload += 1
-       if stats.status() == MirrorStatus.STATUS_ARCHIVING:
-                num_archi += 1
-       if stats.status() == MirrorStatus.STATUS_EXTRACTING:
-                num_extract += 1
-       if stats.status() == MirrorStatus.STATUS_SPLITTING:
-                num_split += 1
+    cpuUsage = cpu_percent(interval=1)
     stats = f"""
-CPU • {cpu}% | RAM • {mem}%
 
-DL • {num_active} | UP • {num_upload} | SPLIT • {num_split}
-ZIP • {num_archi} | UNZIP • {num_extract} | TOTAL • {tasks}
+CPU: ┋{progress_bar(cpuUsage)} {cpuUsage}% |
+RAM:┋{progress_bar(mem_p)}┋{mem_p}%
+DISK:┋{progress_bar(disk)}┋{disk}%
+T: {disk_t} | F: {disk_f}
 
-Limits • T/D • {TORRENT_DIRECT_LIMIT}GB | Z/U • {ZIP_UNZIP_LIMIT}GB
-                    L • {LEECH_LIMIT}GB | M • {MEGA_LIMIT}GB
+Working For: {currentTime}
+T-DL: {recv} | T-UL: {sent}
+
 
 ● Powered By ✔️ WOOD-craft
 """

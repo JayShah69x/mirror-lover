@@ -428,7 +428,7 @@ def bot_sys_stats():
     cpuUsage = cpu_percent(interval=1)
     stats = f"""
 
-CPU: ┋{progress_bar(cpuUsage)} {cpuUsage}% |
+CPU: ┋{progress_bar(cpuUsage)}┋ {cpuUsage}%
 RAM:┋{progress_bar(mem_p)}┋{mem_p}%
 DISK:┋{progress_bar(disk)}┋{disk}%
 T: {disk_t} | F: {disk_f}
